@@ -57,7 +57,6 @@ class ImdbSpider(scrapy.Spider):
             # Here, to get rif of the trivial names,
             # I'll not include the show names with
             # "Episode" or "Show all"
-            #movie_name = movie.get()
             if (movie_name.find("Episode" and "Show all") == -1):
                 yield {"actor": actor_name, "movie_or_TV_name": movie_name}
             #if ("filming" and "announced" and "post-production" not in movie_name) and movie_name.find("Episode") == -1 and movie_name.find("Show all") == -1: #get rid of trivial names
