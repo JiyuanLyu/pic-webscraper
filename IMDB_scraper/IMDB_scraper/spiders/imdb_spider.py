@@ -59,6 +59,4 @@ class ImdbSpider(scrapy.Spider):
             # "Episode" or "Show all"
             if (movie_name.find("Episode" and "Show all") == -1):
                 yield {"actor": actor_name, "movie_or_TV_name": movie_name}
-            #if ("filming" and "announced" and "post-production" not in movie_name) and movie_name.find("Episode") == -1 and movie_name.find("Show all") == -1: #get rid of trivial names
-            #    yield {"name": actor_name, "film/show": movie_name    }
 
