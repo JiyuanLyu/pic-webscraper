@@ -52,7 +52,7 @@ class ImdbSpider(scrapy.Spider):
         # Get the second value in the dictionary: movie_or_TV_name
 
         # Get all the filmography of this actor
-        all_shows = response.css("div filmo-row").css("a::text").getall()
+        all_shows = response.css("div.filmo-row").css("a::text").getall()
         for movie in all_shows:
             yield {"actor": actor_name,
                    "movie_or_TV_name": movie}
