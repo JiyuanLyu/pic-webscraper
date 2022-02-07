@@ -1,6 +1,7 @@
 # to run 
 # scrapy crawl imdb_spider -o movies.csv
 
+from gettext import find
 import scrapy
 
 class ImdbSpider(scrapy.Spider):
@@ -49,11 +50,15 @@ class ImdbSpider(scrapy.Spider):
         # Get the first value in the dictionary: actor_name
         actor_name = response.css("span.itemprop::text").get()
 
-        # Get the second value in the dictionary: movie_or_TV_name
-
-        # Get all the filmography of this actor using the hint
-        all_shows = response.css("div.filmo-row").css("a::text").getall()
+        # Then, get the second value in the dictionary: movie_or_TV_name
+        # Get all the filmography of this actor
+        all_shows = response.css("div.filmo-row").css("a::text")
         for movie in all_shows:
-            yield {"actor": actor_name,
-                   "movie_or_TV_name": movie}
+            # Here, to get rif of the trivial names,
+            # I'll not include the show names with
+            # "Episode" or "Show all"
+            movie = movie.get()
+            if movie.find("Episode") == -1 and movie.find("Show all") == -1:
+                yield {"actor": actor_name,
+                       "movie_or_TV_name": movie}
 
