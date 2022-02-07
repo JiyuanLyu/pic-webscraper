@@ -53,11 +53,12 @@ class ImdbSpider(scrapy.Spider):
         # Then, get the second value in the dictionary: movie_or_TV_name
         # Get all the filmography of this actor
         all = response.css("div#content-2-wide.redesign")
-        movies = all.css("div.filmo-row").css("a::text").getall()
+        movies = all.css("div.filmo-row").css("a::text")
         for movie in movies:
             # Here, to get rif of the trivial names,
             # I'll not include the show names with
             # "Episode" or "Show all"
-            if movie.find("Episode") == -1 and movie.find("Show all") == -1:
+            movie_name = movie.get()
+            if movie_name.find("Episode" and "Show all") == -1:
                 yield {"actor": actor_name, "movie_or_TV_name": movie}
 
