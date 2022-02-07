@@ -31,7 +31,7 @@ class ImdbSpider(scrapy.Spider):
         reaching the actors' pages.
         """
 
-        # Click the actors' pictures
+        # Click the actors' pictures using the hint
         actors = [a.attrib["href"] for a in response.css("td.primary_photo a")]
         # For each actor, yield a request
         for actor in actors:
@@ -51,7 +51,7 @@ class ImdbSpider(scrapy.Spider):
 
         # Get the second value in the dictionary: movie_or_TV_name
 
-        # Get all the filmography of this actor
+        # Get all the filmography of this actor using the hint
         all_shows = response.css("div.filmo-row").css("a::text").getall()
         for movie in all_shows:
             yield {"actor": actor_name,
